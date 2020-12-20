@@ -4546,10 +4546,10 @@
          </rect>
         </property>
         <property name="numDigits">
-         <number>3</number>
+         <number>5</number>
         </property>
         <property name="value" stdset="0">
-         <double>0.000000000000000</double>
+         <double>19.978999999999999</double>
         </property>
        </widget>
        <widget class="QLabel" name="label_67">

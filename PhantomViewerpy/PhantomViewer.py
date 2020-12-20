@@ -940,8 +940,12 @@ class PhantomViewer(QMainWindow):
           y=roi.pos()[1]+roi.size()[1]/2
           Xindex = int((x+self.ds.FoVX[j]/2)/self.ds.PixelSpacingX[j]) #if self.ds.PixelSpacingX[self.nCurrentImage] > 0. else Xindex = int(mousePoint.x())
           Yindex = int((y+self.ds.FoVY[j]/2)/self.ds.PixelSpacingY[j]) #if self.ds.PixelSpacingY[self.nCurrentImage] > 0. else Yindex = int(mousePoint.y())
-          value=  self.ds.PA[j][Xindex,Yindex] 
-          bg=(self.ds.PA[j][Xindex+dx,Yindex] +self.ds.PA[j][Xindex-dx,Yindex]+self.ds.PA[j][Xindex,Yindex+dy]+self.ds.PA[j][Xindex,Yindex-dy])/4
+          value=  self.ds.PA[j][Xindex,Yindex]
+          bgx= self.ds.PA[j][Xindex+dx,Yindex]
+          bgmx=self.ds.PA[j][Xindex-dx,Yindex]
+          bgy=self.ds.PA[j][Xindex,Yindex+dy]
+          bgmy=self.ds.PA[j][Xindex,Yindex-dy]
+          bg=(bgx+bgmx)/2 #*** needs work****
           return bg
       except:
           return 0.0
@@ -1333,7 +1337,7 @@ class PhantomViewer(QMainWindow):
       self.msgPrint ("Slice location(mm)=" + "{:6.1f}".format(self.ds.SliceLocation[self.nCurrentImage]) + "\n")   
     rd = np.zeros((len(self.pgROIs),len(self.reducedImageSet)))     #array containing raw data average signal in each ROI for each image
     std = np.zeros((len(self.pgROIs),len(self.reducedImageSet)))    #array containing raw data standard deviation of signal in each ROI for each image
-    bgROI = np.zeros((len(self.pgROIs),len(self.reducedImageSet)))    #array containing background signal around each ROI for each signal
+    self.ROIbgs = np.zeros((len(self.pgROIs),len(self.reducedImageSet)))    #array containing background signal around each ROI for each signal
 # Set independent variable (parameter that is being varied ie TI, TE, TR, b, T etc
 # T1 data
     if self.dataType == "T1":
@@ -1419,7 +1423,7 @@ class PhantomViewer(QMainWindow):
         rd[i ,j]= (array.mean()-self.ds.ScaleIntercept[self.reducedImageSet[j]])/self.ds.ScaleSlope[self.reducedImageSet[j]] #corrects for scaling in Phillips data
         self.msgPrint ( "{:12.3f}".format(rd[i,j]) )
         std[i ,j]=array.std()       #does not have Phillips scaling
-        bgROI[i,j]=self.setbgROI(i,j+1) #i=roi, j=image starts at 1 
+        self.ROIbgs[i,j]=self.setbgROI(i,j+1) #i=roi, j=image starts at 1 
       c = self.rgb_to_hex(self.setPlotColor(i))
       if self.dataType in ["T1" , "T2", "Dif", ''] and not self.ADCmap:
         self.rdPlot.plot(self.rdx, rd[i,:],pen=self.setPlotColor(i),symbolBrush=self.setPlotColor(i), symbolPen='w', name=self.currentROIs.ROIs[i].Name)    
@@ -1435,7 +1439,7 @@ class PhantomViewer(QMainWindow):
     for i, roi in enumerate(self.pgROIs):   #printing out local background
       self.msgPrint ("ROI-" +"{:02d}".format(i+1) + '    ') 
       for j, pa in enumerate([self.ds.PA[k] for k in self.reducedImageSet]):
-        self.msgPrint ( "{:12.3f}".format(bgROI[i,j]) )
+        self.msgPrint ( "{:12.3f}".format(self.ROIbgs[i,j]) )
       self.msgPrint (os.linesep)      
     if self.dataType == "PD-SNR" or self.dataType == "LCTherm": #raw data is a 1d array signal vs ROI.PD
       for k in range(len(self.reducedImageSet)):
@@ -1491,7 +1495,7 @@ class PhantomViewer(QMainWindow):
         self.fitT2SEData(self.rdx,self.rdy)
       if self.dataType == "PD-SNR":
         self.resultsLogModeX=False
-        self.resultsLogModeY=True  
+        self.resultsLogModeY=False  
         self.fitPDSNR()    
       if self.dataType == "Dif":
         if not self.ADCmap:
@@ -1784,6 +1788,11 @@ class PhantomViewer(QMainWindow):
        
   def fitPDSNR(self):
     self.msgPrint('PD-SNR')
+    self.resultsPlot.clear()
+    pd=np.mean(self.rdy/self.ROIbgs, axis=1)
+    pd=pd/pd.max()*100
+    self.resultsPlot.plot(self.rdx,pd ,pen=self.setPlotColor(0),symbolBrush=self.setPlotColor(0), symbolPen='w')
+    #self.resultsPlot.plot(self.fitx,self.fity ,pen=self.setPlotColor(1))
     
   def fitLCTherm(self,Tc,data):
       """Fits LCTherm data"""

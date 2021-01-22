@@ -1,9 +1,7 @@
 # PhantomViewer
 Analysis package written in Python to analyze MRI phantoms developed by NIST and collaborators at NCI, RSNA, NIBIB
 
-Created on Fri Oct 11 16:30:54 2013
-
-PhantomViewer: Main class to display and analyze phantom data, mostly MRI data
+PhantomViewer: Main class to display and analyze phantom data, mostly MRI data, although also used to analyze CT data on phantoms
 
 Modules required (can be installed using 'pip install package' or  'pip install package --upgrade':
 verify module version using "pip show module"
@@ -23,10 +21,10 @@ verify module version using "pip show module"
    
    scikit-image  Version: 0.11.3: uses unwrap_phase from skimage.resoration
    
-   PyOpenGL                      (Used for 3D plotting)
+   PyOpenGL                      (Used for 3D rendering of images and data)
    
 
-**Will work with Anaconda 2, Python 2.7.11, PYQT4 (not recommended)**
+
 
 The main Gui is PhantomViewerGui5.py created from PhantomViewer.ui by Qt Designer
 

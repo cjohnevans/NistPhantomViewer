@@ -10,7 +10,7 @@ verify module version using "pip show module"
    lmfit Version: 1.0.0          (for nonlinear least squares fitting routines)
    unwrap Version: 0.1.1
    scikit-image  Version: 0.11.3: uses unwrap_phase from skimage.resoration
-   PyOpenGL                      (Used for 3D plotting)
+   PyOpenGL                      (Used for 3D plotting and rendering)
 
 will work with Anaconda 2 with Python 2.7.11, PYQT4 (not recommended)    
 Uses PhantomViewerGui created from PhantomViewer.ui by Qt Designer
@@ -22,6 +22,9 @@ Uses PhantomViewerGui created from PhantomViewer.ui by Qt Designer
 Units: times in ms, distances in mm, ADC in mm2/s, Temperature in C,
 
 VPhantom: class to describe phantoms, several virtual phantoms, including the NIST/ISMRM system phantom are available
+
+Example to open the program from Windows command line:
+c:\anaconda3\pythonw.exe D:\workspace\PhantomViewer\PhantomViewerpy\PhantomViewer.py
 """
 
 import sys
@@ -72,7 +75,7 @@ class PhantomViewer(QMainWindow):
     super(PhantomViewer, self).__init__()
     pg.setConfigOption('background', 0.2)   #Background on plots 0 = black, 1 = white
     pg.setConfigOption('foreground', 'w')
-    self.setAttribute(Qt.WA_NativeWindow, True)
+    #self.setAttribute(Qt.WA_NativeWindow, True)
     self.ui = Ui_PhantomViewerGui()
     self.ui.setupUi(self)
     self.modDate = '4/16/2020'
@@ -273,6 +276,8 @@ class PhantomViewer(QMainWindow):
     self.msgPrint('Python='+ sys.version + '; pydicom=' + pydicom._version.__version__ + '; PyQt=' +PYQT_VERSION_STR +'\n')    #print Python version being used
     self.bgXSpacing=14.0   #distance between center of ROI and location where background is measured"
     self.bgYSpacing=12.5
+    self.pythonPath=sys.path
+    #self.msgPrint('Python=' + str(self.pythonPath))
 
 #********************Setup phantom parameters************************************    
   def setupPhantom(self, phantom):
@@ -302,6 +307,7 @@ class PhantomViewer(QMainWindow):
 #**************** Standard Phantoms *******************
   def SystemPhantom (self):
     self.setupPhantom(SystemPhantom.SystemPhantom())
+    self.msgPrint('System Phantom: Calibrations ' + self.Phantom.phantomReferenceData)
    
   def DiffusionPhantom (self):
     self.setupPhantom(DiffusionPhantom.DiffusionPhantom())
@@ -403,9 +409,12 @@ class PhantomViewer(QMainWindow):
   def openFile (self):
     '''opens image file, set of highlighted files, or a DICOM directory'''
     f = QFileDialog.getOpenFileNames(self,"Open Image Files  or DICOMDIR",self.imageDirectory )
+    print (f)
     if not f:  #if cancel is pressed return
       return None     
     if type(f)==tuple:    #passes  string with PyQt4 and a tuple with PyQt5
+      if f[0]==[]:    #Return if cancelled
+        return None
       self.fileNames=f[0]
     else:
       self.fileNames=f
@@ -452,6 +461,8 @@ class PhantomViewer(QMainWindow):
     if not f:  #if cancel is pressed return
       return None     
     if type(f)==tuple:    #passes  string with PyQt4 and a tuple with PyQt5
+      if f[0]==[]:    #Return if cancelled
+        return None
       fileName=f[0]
     else:
       fileName=f
@@ -462,15 +473,20 @@ class PhantomViewer(QMainWindow):
     if not f:  #if cancel is pressed return
       return None     
     if type(f)==tuple:    #passes  string with PyQt4 and a tuple with PyQt5
+      if f[0]==[]:    #Return if cancelled
+        return None
       fileName=f[0]
     else:
       fileName=f
     self.ds.writeAnimatedGIF(fileName)   #write current image list to GIF
              
   def changeROISet (self):
-    self.InitialROIs =self.Phantom.ROIsets[self.ui.hsROISet.value()]
-    self.ui.lblROISet.setText(self.InitialROIs.ROIName)
-    self.resetROIs()
+    try:
+      self.InitialROIs =self.Phantom.ROIsets[self.ui.hsROISet.value()]
+      self.ui.lblROISet.setText(self.InitialROIs.ROIName)
+      self.resetROIs()
+    except:
+      self.msgPrint('Cannot change ROI set')
     
  # *******************Image Display Methods*****************************     
   def imageSlider (self):
@@ -816,6 +832,8 @@ class PhantomViewer(QMainWindow):
       if not f:  #if cancel is pressed return
         return None     
       if type(f)==tuple:    #passes  string with PyQt4 and a tuple with PyQt5
+        if f[0]==[]:    #Return if cancelled
+          return None
         fileName=f[0]
       else:
         fileName=f
@@ -831,6 +849,8 @@ class PhantomViewer(QMainWindow):
       if not f:  #if cancel is pressed return
         return None     
       if type(f)==tuple:    #passes  string with PyQt4 and a tuple with PyQt5
+        if f[0]==[]:    #Return if cancelled
+          return None
         self.phantomFileName=f[0]
       else:
         self.phantomFileName=f
@@ -2015,6 +2035,8 @@ class PhantomViewer(QMainWindow):
       if not f:  #if cancel is pressed return
         return None     
       if type(f)==tuple:    #passes  string with PyQt4 and a tuple with PyQt5
+        if f[0]==[]:    #Return if cancelled
+          return None
         fileName=f[0]
       else:
         fileName=f
@@ -2063,6 +2085,8 @@ class PhantomViewer(QMainWindow):
       if not f:  #if cancel is pressed return
         return None     
       if type(f)==tuple:    #passes  string with PyQt4 and a tuple with PyQt5
+        if f[0]==[]:    #Return if cancelled
+          return None
         fileName=f[0]
       else:
         fileName=f
@@ -2090,6 +2114,8 @@ class PhantomViewer(QMainWindow):
       if not f:  #if cancel is pressed return
         return None     
       if type(f)==tuple:    #passes  string with PyQt4 and a tuple with PyQt5
+        if f[0]==[]:    #Return if cancelled
+          return None
         fileName=f[0]
       else:
         fileName=f
@@ -2231,10 +2257,11 @@ class PhantomViewer(QMainWindow):
       else:
         return None
               
-  def msgPrint (self, s):
-          self.ui.txtResults.insertPlainText(s)
-          if self.messageLogOn== True:
-            self.messageLog+=s
+  def msgPrint (self, s, mLog=False):
+      '''prints message in message window and can save in messageLog if self.messageLogOn=True'''
+      self.ui.txtResults.insertPlainText(s)
+      if self.messageLogOn== True or mLog==True:
+        self.messageLog+=s
 
 class fCircleROI(pg.EllipseROI):   #originally was pg.EllipseROI
     """Defines a circular ROI using pyqtgraph's EllipseROI"""
@@ -2381,6 +2408,8 @@ class messageWindow():
     if not f:  #if cancel is pressed return
       return None     
     if type(f)==tuple:    #passes  string with PyQt4 and a tuple with PyQt5
+      if f[0]==[]:    #Return if cancelled
+        return None
       fileName=f[0]
     else:
       fileName=f

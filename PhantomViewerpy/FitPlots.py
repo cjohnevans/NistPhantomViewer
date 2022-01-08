@@ -70,9 +70,15 @@ class FitPlots(QMainWindow):
    
     def saveData(self):
       '''output data to fileName.csv and fit function to filenameFit.csv'''
-      fileName = QFileDialog.getSaveFileName(parent=None, caption="Report File Name", directory = '', selectedFilter = ".csv")
-      if not fileName:  #if cancel is pressed return
+      f = QFileDialog.getSaveFileName(parent=None, caption="Data File Name", directory = '', filter="csv files (*.csv)")
+      if not f:  #if cancel is pressed return
         return None
+      if type(f)==tuple:    #passes  string with PyQt4 and a tuple with PyQt5
+        if f[0]==[]:    #Return if cancelled
+          return None
+        fileName=f[0]
+      else:
+        fileName=f
       file=str(fileName)
       idx=file.index('.')
       fitfile=file[:idx]+'Fit'+file[idx:]

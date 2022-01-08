@@ -58,10 +58,13 @@ class ImageList():
     self.InstitutionName.append("") 
     self.ImagePosition= []      #upper left corner coordinates
     self.ImagePosition.append(np.array([0,0,0]))
+    self.ImageType= []      #Image type tag 008 008, has magnitude, phase specifier
+    self.ImageType.append('')
     self.ImageCenter= []      #Image center coordinates
     self.ImageCenter.append(np.zeros(3))
-    self.ImagingFrequency= []      #Image center coordinates
+    self.ImagingFrequency= []      #Image frequency
     self.ImagingFrequency.append(0.0)
+
 
     self.MagneticFieldStrength= []
     self.MagneticFieldStrength.append(0.0)    
@@ -119,7 +122,7 @@ class ImageList():
     return 'Added image to stack'
 
   def sort_list(self, list1, list2, reverse=False):
-    '''sorts list1 using lit2, returns sorted list1''' 
+    '''sorts list1 using list2, returns sorted list1''' 
     zipped_pairs = zip(list2, list1) 
     z = [x for _, x in sorted(zipped_pairs, reverse=reverse)]
     return z 
@@ -266,8 +269,13 @@ class ImageList():
     self.Columns.append(ImageFile.Columns) if hasattr(ImageFile,"Columns") else self.Columns.append(0) 
 #ImageOrientationPatient is a list of strings
     self.ColumnDirection.append(np.asfarray(ImageFile.ImageOrientationPatient[3:6])) if hasattr(ImageFile,"ImageOrientationPatient") else self.ColumnDirection.append(np.array([0.,1.,0.]))
-    self.Comment.append(ImageFile.Comment) if hasattr(ImageFile,"Comment") else self.Comment.append("") 
-    self.DataType.append(ImageFile.DataType) if hasattr(ImageFile,"DataType") else self.DataType.append("")
+    self.Comment.append(ImageFile.Comment) if hasattr(ImageFile,"Comment") else self.Comment.append("")
+    if hasattr(ImageFile,"DataType"): 
+      self.DataType.append(ImageFile.DataType)
+    elif hasattr(ImageFile,"ImageType"):
+      self.DataType.append(ImageFile.ImageType[2])  
+    else:
+       self.DataType.append("")
     self.Rows.append(ImageFile.Rows) if hasattr(ImageFile,"Rows") else self.Rows.append(0)
     self.StudyDate.append(ImageFile.StudyDate) if hasattr(ImageFile,"StudyDate") else self.StudyDate.append("")
     self.Manufacturer.append(ImageFile.Manufacturer) if hasattr(ImageFile,"Manufacturer") else self.Manufacturer.append("")
@@ -282,6 +290,7 @@ class ImageList():
     self.ProtocolName.append(ImageFile.ProtocolName) if hasattr(ImageFile,"ProtocolName") else self.ProtocolName.append("")    
     self.ImagePosition.append(np.asfarray(ImageFile.ImagePositionPatient)) if hasattr(ImageFile,"ImagePositionPatient") else self.ImagePosition.append(np.array([1.,0.,0.]))
     self.ImagePosition.append(ImageFile.ImagePositionPatient) if hasattr(ImageFile,"ImagePositionPatient") else self.ImagePosition.append(np.array([1.,0.,0.]))
+    self.ImageType.append(ImageFile.ImageType) if hasattr(ImageFile,"ImageType") else self.ImageType.append("")
     self.ReceiveCoilName.append(ImageFile.ReceiveCoilName) if hasattr(ImageFile,"ReceiveCoilName") else self.ReceiveCoilName.append("")
     self.RowDirection.append(np.asfarray(ImageFile.ImageOrientationPatient[:3])) if hasattr(ImageFile,"ImageOrientationPatient") else self.RowDirection.append(np.array([1.,0.,0.]))
     self.TR.append(ImageFile.RepetitionTime) if hasattr(ImageFile,"RepetitionTime") else self.TR.append(0.0) 

@@ -177,7 +177,7 @@ class resolutionWindow():
     self.win.resize(800,600)
     self.imv = pg.ImageView( view = pg.PlotItem())
     #self.imv.getView().invertY(False)
-    self.imv.ui.histogram.plot.setLogMode(None,True)    #set the histogram y axis to a log scale    
+    #self.imv.ui.histogram.plot.setLogMode(None,True)    #set the histogram y axis to a log scale    
     self.imv.ui.roiBtn.setText("Line scan/ROI")
     self.win.setCentralWidget(self.imv)
     self.win.setWindowTitle('Resolution Inset')

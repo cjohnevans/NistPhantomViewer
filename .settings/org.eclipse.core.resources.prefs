@@ -1,6 +1,13 @@
 eclipse.preferences.version=1
+encoding//PhantomViewerpy/BreastPhantom.py=utf-8
 encoding//PhantomViewerpy/DICOMDIRGui5.py=utf-8
+encoding//PhantomViewerpy/DICOMDir.py=utf-8
+encoding//PhantomViewerpy/DiffusionPhantom.py=utf-8
+encoding//PhantomViewerpy/PVSetup.py=utf-8
 encoding//PhantomViewerpy/PhantomViewer.py=utf-8
 encoding//PhantomViewerpy/PhantomViewerGui5.py=utf-8
+encoding//PhantomViewerpy/ROIProperties.py=utf-8
 encoding//PhantomViewerpy/SystemPhantom.py=utf-8
 encoding//PhantomViewerpy/VPhantom.py=utf-8
+encoding//PhantomViewerpy/fdftopy.py=utf-8
+encoding//PhantomViewerpy/images2gif.py=utf-8

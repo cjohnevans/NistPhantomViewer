@@ -1,6 +1,11 @@
 # PhantomViewer
 Analysis package written in Python to analyze MRI phantoms developed by NIST and collaborators at NCI, RSNA, NIBIB
 
+General workflow:
+    1. Open image set, DICOM, TIF.   
+        The program will guess at the type of analyis that is desired by file names and parmaeters varied in the header info 
+    2. Select phantom type, not the calibration data set being used.
+     
 PhantomViewer: Main class to display and analyze phantom data, mostly MRI data, although also used to analyze CT data on phantoms
 
 Modules required (can be installed using 'pip install package' or  'pip install package --upgrade':

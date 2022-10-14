@@ -300,7 +300,12 @@ class ImageList():
     self.TI.append(ImageFile.InversionTime) if hasattr(ImageFile,"InversionTime") else self.TI.append(0.0) 
     self.SliceThickness.append(ImageFile.SliceThickness) if hasattr(ImageFile,"SliceThickness") else self.SliceThickness.append(0.0)    
     self.SliceLocation.append(ImageFile.SliceLocation) if hasattr(ImageFile,"SliceLocation") else self.SliceLocation.append(0.0)
-
+# Try to unpack Siemens receive coil info 0051,100f 
+    try:
+      receiveCoil=struct.unpack('12s',ImageFile[0x0051, 0x100f].value)[0]
+      print ('Receivecoil=' +str(recieveCoil))
+    except:
+      receiveCoil=''
 # Phillips scaling corrections FP = (PV-SI)/SS = PV/SS where FP is the floating point value, PV is the pixel value, SI and SS are the scaled slope and intercept
 # SS is in [0x2005, 0x100E] and si is in [0x2005, 0x100D], both are single precision floats
     try:

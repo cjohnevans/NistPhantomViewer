@@ -1,0 +1,11 @@
+{
+  "base_url": "/",
+  "hostname": "localhost",
+  "notebook_dir": "D:\\workspace\\RPjupyter-master\\examples",
+  "password": false,
+  "pid": 16740,
+  "port": 8888,
+  "secure": false,
+  "token": "4cdd13c2d89519a6d00168adf72ab699e8870c4f007deb17",
+  "url": "http://localhost:8888/"
+}

@@ -6,12 +6,31 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1517</width>
-    <height>816</height>
+    <width>1515</width>
+    <height>820</height>
    </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1515</width>
+    <height>820</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../icons/PVicon.ico</normaloff>../icons/PVicon.ico</iconset>
+  </property>
+  <property name="toolTip">
+   <string/>
+  </property>
+  <property name="iconSize">
+   <size>
+    <width>48</width>
+    <height>48</height>
+   </size>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QFrame" name="frame_4">
@@ -396,6 +415,9 @@
         <height>21</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>Shows current image meta-data</string>
+      </property>
       <property name="text">
        <string>View image header</string>
       </property>
@@ -576,6 +598,9 @@
         <height>21</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>Current set of ROIs (regions of interest)</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::WinPanel</enum>
       </property>
@@ -618,99 +643,6 @@
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QLabel" name="label_27">
-      <property name="geometry">
-       <rect>
-        <x>205</x>
-        <y>10</y>
-        <width>42</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>v(mm)</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_28">
-      <property name="geometry">
-       <rect>
-        <x>315</x>
-        <y>10</y>
-        <width>39</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Value</string>
-      </property>
-     </widget>
-     <widget class="QTextEdit" name="lblValue">
-      <property name="geometry">
-       <rect>
-        <x>355</x>
-        <y>10</y>
-        <width>55</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::WinPanel</enum>
-      </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOff</enum>
-      </property>
-     </widget>
-     <widget class="QTextEdit" name="lblH">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>10</y>
-        <width>46</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::WinPanel</enum>
-      </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOff</enum>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_29">
-      <property name="geometry">
-       <rect>
-        <x>110</x>
-        <y>10</y>
-        <width>43</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>h(mm)</string>
-      </property>
-     </widget>
-     <widget class="QTextEdit" name="lblV">
-      <property name="geometry">
-       <rect>
-        <x>250</x>
-        <y>10</y>
-        <width>46</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::WinPanel</enum>
-      </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOff</enum>
-      </property>
-     </widget>
      <widget class="QTextEdit" name="lblPhaseEncodeDirection">
       <property name="geometry">
        <rect>
@@ -738,41 +670,6 @@
       </property>
       <property name="text">
        <string>Phase encode direction</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QTextEdit" name="lblSliceLocation">
-      <property name="geometry">
-       <rect>
-        <x>515</x>
-        <y>10</y>
-        <width>46</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::WinPanel</enum>
-      </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOff</enum>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_14">
-      <property name="geometry">
-       <rect>
-        <x>410</x>
-        <y>5</y>
-        <width>106</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Slice Loc (mm)</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -951,6 +848,141 @@
       <property name="wordWrap">
        <bool>true</bool>
       </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>10</y>
+        <width>631</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetDefaultConstraint</enum>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_69">
+         <property name="text">
+          <string>Col I</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblColI">
+         <property name="frameShape">
+          <enum>QFrame::WinPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_70">
+         <property name="text">
+          <string>Row J</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="lblRowJ">
+         <property name="frameShape">
+          <enum>QFrame::WinPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_29">
+         <property name="text">
+          <string>h(mm)</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTextEdit" name="lblH">
+         <property name="frameShape">
+          <enum>QFrame::WinPanel</enum>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_27">
+         <property name="text">
+          <string>v(mm)</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTextEdit" name="lblV">
+         <property name="frameShape">
+          <enum>QFrame::WinPanel</enum>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_28">
+         <property name="text">
+          <string>Value</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTextEdit" name="lblValue">
+         <property name="frameShape">
+          <enum>QFrame::WinPanel</enum>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_14">
+         <property name="text">
+          <string>Slice Loc (mm)</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="wordWrap">
+          <bool>false</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTextEdit" name="lblSliceLocation">
+         <property name="frameShape">
+          <enum>QFrame::WinPanel</enum>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QFrame" name="frame_7">
@@ -2068,6 +2100,9 @@
         </disabled>
        </palette>
       </property>
+      <property name="toolTip">
+       <string>Adjust size of ROIs</string>
+      </property>
       <property name="autoFillBackground">
        <bool>true</bool>
       </property>
@@ -2155,6 +2190,9 @@
          <height>20</height>
         </rect>
        </property>
+       <property name="toolTip">
+        <string>Mouse acts on single ROI</string>
+       </property>
        <property name="text">
         <string>single ROI</string>
        </property>
@@ -2167,6 +2205,9 @@
          <width>101</width>
          <height>20</height>
         </rect>
+       </property>
+       <property name="toolTip">
+        <string>Act on entire ROI set</string>
        </property>
        <property name="text">
         <string>ROI set</string>
@@ -2277,7 +2318,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Rotate90e Y</string>
+       <string>Rotate90 Y</string>
       </property>
      </widget>
      <widget class="QCheckBox" name="cbViewROIInfo">
@@ -2288,6 +2329,9 @@
         <width>111</width>
         <height>20</height>
        </rect>
+      </property>
+      <property name="toolTip">
+       <string>Opens window with information on  ROI  at mouse pointer</string>
       </property>
       <property name="text">
        <string>View ROI Info</string>
@@ -2804,6 +2848,9 @@
           </colorrole>
          </disabled>
         </palette>
+       </property>
+       <property name="toolTip">
+        <string>Scrolls through image stack</string>
        </property>
        <property name="autoFillBackground">
         <bool>true</bool>
@@ -3459,6 +3506,9 @@
       <height>791</height>
      </rect>
     </property>
+    <property name="toolTipDuration">
+     <number>-1</number>
+    </property>
     <property name="autoFillBackground">
      <bool>true</bool>
     </property>
@@ -3734,7 +3784,7 @@
       <bool>true</bool>
      </property>
      <property name="currentIndex">
-      <number>6</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="T1">
       <widget class="QTabWidget" name="tabT1">
@@ -3963,7 +4013,7 @@
          <x>10</x>
          <y>0</y>
          <width>356</width>
-         <height>211</height>
+         <height>201</height>
         </rect>
        </property>
        <property name="autoFillBackground">
@@ -3988,11 +4038,14 @@
            <height>131</height>
           </rect>
          </property>
+         <property name="toolTip">
+          <string>Current signal model used for fitting</string>
+         </property>
          <property name="text">
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap>icons/T2-1model.jpg</pixmap>
+          <pixmap>../icons/T2-1model.jpg</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -4020,6 +4073,22 @@
           <bool>false</bool>
          </property>
          <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="rbFixSEB">
+         <property name="geometry">
+          <rect>
+           <x>230</x>
+           <y>30</y>
+           <width>82</width>
+           <height>17</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Fix B=0</string>
+         </property>
+         <property name="checked">
           <bool>true</bool>
          </property>
         </widget>
@@ -4053,7 +4122,7 @@
         <enum>QTabWidget::North</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="PDSNR">
         <attribute name="title">
@@ -4121,8 +4190,8 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>160</y>
-           <width>306</width>
+           <y>120</y>
+           <width>221</width>
            <height>31</height>
           </rect>
          </property>
@@ -4133,13 +4202,42 @@
           <enum>QFrame::StyledPanel</enum>
          </property>
          <property name="text">
-          <string>SNR NEMA</string>
+          <string>SNR NEMA MS 1-2008 Method 1 R2014</string>
          </property>
          <property name="scaledContents">
           <bool>false</bool>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_68">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>281</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Requires 2 identical image, subtracts image 1 from image 2, SNR=sqrt(2)*avSignal/std</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pbCaclulateSNR">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>70</y>
+           <width>75</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Calculate SNR</string>
          </property>
         </widget>
        </widget>
@@ -4545,7 +4643,7 @@
           <height>46</height>
          </rect>
         </property>
-        <property name="numDigits">
+        <property name="digitCount">
          <number>5</number>
         </property>
         <property name="value" stdset="0">
@@ -4617,7 +4715,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1517</width>
+     <width>1515</width>
      <height>21</height>
     </rect>
    </property>
@@ -4638,11 +4736,13 @@
     <addaction name="actionDiffusion"/>
     <addaction name="actionMake_Map"/>
     <addaction name="separator"/>
+    <addaction name="actionShow_Hide_Phantom_Reference_Values"/>
    </widget>
    <widget class="QMenu" name="menu_Instructions">
     <property name="title">
      <string>Instructions</string>
     </property>
+    <addaction name="actionPhantomViewer_overview"/>
     <addaction name="actionGeometric_DIstortion"/>
     <addaction name="actionProton_Density_Noise"/>
     <addaction name="actionSlice_thickness"/>
@@ -4701,6 +4801,8 @@
     <addaction name="actionSave_ROI_arrays"/>
     <addaction name="actionCrop_to_ROI"/>
     <addaction name="actionPlot_ROI_vs_Index"/>
+    <addaction name="actionUse_affine_regridding"/>
+    <addaction name="actionUse_raw_voxels"/>
    </widget>
    <widget class="QMenu" name="menuReports">
     <property name="title">
@@ -4837,6 +4939,9 @@
    <property name="text">
     <string>Clear All Images</string>
    </property>
+   <property name="toolTip">
+    <string>Clear All Images</string>
+   </property>
    <property name="shortcut">
     <string>Ctrl+C</string>
    </property>
@@ -4872,6 +4977,9 @@
   <action name="actionShowHide_ROIs">
    <property name="text">
     <string>Show/Hide ROIs</string>
+   </property>
+   <property name="toolTip">
+    <string>Show/hide regions of interest (ROIs)</string>
    </property>
   </action>
   <action name="actionReset_ROIs">
@@ -4931,6 +5039,9 @@
   </action>
   <action name="actionOpenPhantomFile">
    <property name="text">
+    <string>Open phantom file</string>
+   </property>
+   <property name="toolTip">
     <string>Open phantom file</string>
    </property>
   </action>
@@ -5095,6 +5206,9 @@
    <property name="text">
     <string>Show Image Stack</string>
    </property>
+   <property name="toolTip">
+    <string>Brings image stack to foreground</string>
+   </property>
   </action>
   <action name="actionLabel_Color">
    <property name="text">
@@ -5119,6 +5233,26 @@
   <action name="actionLC_Thermometer">
    <property name="text">
     <string>LC Thermometer</string>
+   </property>
+  </action>
+  <action name="actionUse_affine_regridding">
+   <property name="text">
+    <string>Use affine regridding</string>
+   </property>
+  </action>
+  <action name="actionUse_raw_voxels">
+   <property name="text">
+    <string>Use raw voxels</string>
+   </property>
+  </action>
+  <action name="actionShow_Hide_Phantom_Reference_Values">
+   <property name="text">
+    <string>Show-Hide Phantom Reference Values</string>
+   </property>
+  </action>
+  <action name="actionPhantomViewer_overview">
+   <property name="text">
+    <string>PhantomViewer overview</string>
    </property>
   </action>
  </widget>

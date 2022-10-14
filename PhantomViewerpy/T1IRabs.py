@@ -28,7 +28,7 @@ def initializeT1IRabs (nroi=None,TI=None, data=None, roi = None, useROIs = False
     T1params.add('Si', value= np.amax(data), vary = True)
     paramlist.append('Si')
     if delta==None:
-        T1params.add('B',  value= 2,  min=1.0, max=3.0, vary = True)
+        T1params.add('B',  value= 2,  min=1.5, max=3.0, vary = True)
     else:
         T1params.add('B',  value= 1+delta,  min=1.5, max=2.5, vary = False)
     paramlist.append('B')

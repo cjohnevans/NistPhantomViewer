@@ -9,10 +9,7 @@ from pyqt import *         #imports required PyQt modules, tries PyQT4 then PyQt
 import pyqtgraph as pg
 #import pyqtgraph.opengl as gl
 import pyqtgraph.functions as fn
-if pyqtVersion==4:
-  from FitPlotsGui4 import Ui_FitPlotsGui    #main window Gui
-if pyqtVersion==5:
-  from FitPlotsGui5 import Ui_FitPlotsGui    #main window Gui
+from FitPlotsGui5 import Ui_FitPlotsGui    #main window Gui
 import numpy as np
 
 class FitPlots(QMainWindow):
@@ -26,7 +23,10 @@ class FitPlots(QMainWindow):
         self.ui.vsROI.valueChanged.connect(self.plotROIdata)
         self.ui.actionSave.triggered.connect(self.saveData)
         self.ui.actionData.triggered.connect(self.dataTrue)
-        self.ui.actionResiduals.triggered.connect(self.residualsTrue) 
+        self.ui.actionResiduals.triggered.connect(self.residualsTrue)
+        self.ui.actiontoggle_log_Y.triggered.connect(self.togglelogY) 
+        self.ui.actiontoggle_log_X.triggered.connect(self.togglelogX) 
+        self.ui.actionPlot_all_data.triggered.connect(self.plotAllData)
         self.x=x
         self.y=y
         self.fx=fx
@@ -35,6 +35,8 @@ class FitPlots(QMainWindow):
         self.header=header
         self.data=True
         self.residuals=False
+        self.logY=False #flag to change y axis from linear to log
+        self.logX=False #flag to change x axis from linear to log
         self.fitPlot.setLabel('bottom', xlabel)
         self.fitPlot.setLabel('left', ylabel)
         self.fitPlot.plot(self.x, self.y[0,:], pen=None,  symbolPen=None, symbolSize=20, symbolBrush=(255, 0, 0)) 
@@ -56,7 +58,27 @@ class FitPlots(QMainWindow):
           self.fitPlot.addItem(self.inf1)
           self.fitPlot.addItem(self.inf2)
           
+    def plotAllData(self):
+      nROI=self.ui.vsROI.value()-1
+      self.ui.gvFitPlot.clear()
+      if self.data:
+        for i in range(self.y.shape[0]):
+          self.fitPlot.plot(self.x, self.y[i,:], pen=None,  symbolPen=None, symbolSize=20, symbolBrush=self.setPlotColor(i))
+          self.fitPlot.plot(self.fx, self.fy[i,:],pen={'color': self.setPlotColor(i), 'width': 3}, symbol =None)
+
+      if self.residuals:
+          self.fitPlot.plot(self.x, self.resy[nROI,:]/np.amax(self.fy[nROI,:]), pen=None,  symbolPen=None, symbolSize=20, symbolBrush=(255, 0, 0))
           
+      self.fitPlot.addItem(self.inf1)
+      self.fitPlot.addItem(self.inf2)
+       
+    def togglelogX(self):
+      self.logX= not self.logX
+      self.fitPlot.setLogMode(x=self.logX,y=self.logY) 
+                          
+    def togglelogY(self):
+      self.logY= not self.logY
+      self.fitPlot.setLogMode(x=self.logX,y=self.logY)
           
     def dataTrue(self):
         self.data=True
@@ -67,6 +89,11 @@ class FitPlots(QMainWindow):
         self.data=False
         self.residuals=True
         self.plotROIdata()
+        
+    def setPlotColor(self,i):
+      '''returns a different color for each i'''
+      color = (int(np.base_repr(i, base=3, padding=3)[-1])*127, int(np.base_repr(i, base=3, padding=3)[-2])*127,int(np.base_repr(i, base=3, padding=3)[-3])*127)
+      return color
    
     def saveData(self):
       '''output data to fileName.csv and fit function to filenameFit.csv'''

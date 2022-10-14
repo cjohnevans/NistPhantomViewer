@@ -1,0 +1,11 @@
+{
+  "base_url": "/",
+  "hostname": "localhost",
+  "notebook_dir": "C:\\Anaconda3\\Lib\\site-packages\\RPjupyter-master\\examples",
+  "password": false,
+  "pid": 24008,
+  "port": 8890,
+  "secure": false,
+  "token": "231562bbb9a2143a56d7e02176d0488dacbb0ebd5493fb91",
+  "url": "http://localhost:8890/"
+}

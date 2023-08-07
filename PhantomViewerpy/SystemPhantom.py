@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+ # -*- coding: utf-8 -*-
 """
 Created on Wed Jan 01 10:59:53 2014
 module containing parameters describing NIST/ISMRM MRI system phantom

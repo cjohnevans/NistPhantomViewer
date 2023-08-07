@@ -34,7 +34,7 @@ class PhantomProperties(QtWidgets.QMainWindow):
     self.Phantom.T1ROIs.ROIs = []   #reset ROI list
     if direct == False:
         direct = ''
-    self.fileName = QtGui.QFileDialog.getOpenFileName(self,"Open ROI File", direct, "ROI File (*.dat)")
+    self.fileName = QtWidgets.QFileDialog.getOpenFileName(self,"Open ROI File", direct, "ROI File (*.dat)")
     if not self.fileName:  #if cancel is pressed return
       return None
     f = open(str(self.fileName), 'r')
@@ -64,22 +64,22 @@ class PhantomProperties(QtWidgets.QMainWindow):
         if parameter == te:     #cycle through T1 table entries
           data = np.fromstring(values, sep=',')
           for i in range(data.size):
-            self.ui.tblT1.setItem(self.tblT1[te],i,QtGui.QTableWidgetItem(str(data[i])))
+            self.ui.tblT1.setItem(self.tblT1[te],i,QtWidgets.QTableWidgetItem(str(data[i])))
             self.Phantom.T1ROIs.SetROIsParameter( i, self.T1parameter[self.tblT1[te]], data[i])
 #            print "Set T1 parameter=" + self.T1parameter[self.tblT1[te]] + " =" + str(data[i]) + "; ROI number=" + str(i)
 #            if te == "T1CustomROIT1(ms)":
-#                self.ui.tblT1.setItem(self.tblT1[te]+1,i,QtGui.QTableWidgetItem("{:.3f}".format(1000/data[i]))) #Set R1
+#                self.ui.tblT1.setItem(self.tblT1[te]+1,i,QtWidgets.QTableWidgetItem("{:.3f}".format(1000/data[i]))) #Set R1
       for te in self.tblT2:
         if parameter == te:     #cycle through T2 table entries
           data = np.fromstring(values, sep=',')
           for i in range(data.size):
-            self.ui.tblT2.setItem(self.tblT2[te],i,QtGui.QTableWidgetItem(str(data[i])))
+            self.ui.tblT2.setItem(self.tblT2[te],i,QtWidgets.QTableWidgetItem(str(data[i])))
 #            if te == "T2CustomROIT2(ms)":
-#                self.ui.tblT2.setItem(self.tblT2[te]+1,i,QtGui.QTableWidgetItem("{:.3f}".format(1000/data[i])))  
+#                self.ui.tblT2.setItem(self.tblT2[te]+1,i,QtWidgets.QTableWidgetItem("{:.3f}".format(1000/data[i])))  
   
  
   def savePhantomFile (self,phantom):
-      fileName = QtGui.QFileDialog.getSaveFileName(parent=None, caption="Report File Name", directory = '', selectedFilter = ".dat")
+      fileName = QtWidgets.QFileDialog.getSaveFileName(parent=None, caption="Report File Name", directory = '', initialFilter = ".dat")
       if not fileName:  #if cancel is pressed return
         return None
       f= open(fileName, 'w')

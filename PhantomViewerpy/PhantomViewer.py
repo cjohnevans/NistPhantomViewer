@@ -46,7 +46,7 @@ import pyqtgraph as pg    #uses pyqtgraph PlotWidget for graphs and ImageView wi
 import pyqtgraph.opengl as gl
 import pyqtgraph.functions as fn
 import lmfit            #used for nonlinear least square fits,builds on Levenberg-Marquardt algorithm of scipy.optimize.leastsq(),
-from astropy.nddata.utils import block_reduce #used for down sampling images
+from astropy.nddata import block_reduce #used for down sampling images
 from PIL import Image           #used for resizing 2d images
 from scipy.interpolate import splrep, splev # Bspline representation of a curve and Bspline evaluation
 from scipy.ndimage import zoom   #used for interpolation of images
@@ -2610,7 +2610,7 @@ class imageStackWindow(PhantomViewer):
     self.win.setCentralWidget(self.imv)
     self.win.setWindowTitle('Image Stack')
     point = self.rect().topRight()
-    self.win.move(point + QPoint(self.width()/2, 0))
+    self.win.move(point + QPoint(int(self.width()/2), 0))
     self.win.statusBar = QStatusBar()
     self.win.setStatusBar(self.win.statusBar)
     self.win.statusBar.show()

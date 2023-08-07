@@ -9,12 +9,12 @@ execute   "pyuic4 ROIPropertiesGui.ui -o ROIPropertiesGui.py" from system shell 
 
 import sys
 
-from PyQt5 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, QtWidgets
 from ROIPropertiesGui import Ui_ROIPropertiesGui
 import numpy as np
 import VPhantom
 
-class ROIProperties(QtGui.QMainWindow):
+class ROIProperties(QtWidgets.QMainWindow):
   def __init__(self ,phantom, parent = None):
     super(ROIProperties, self).__init__()
     self.ui = Ui_ROIPropertiesGui()
@@ -119,7 +119,7 @@ class ROIProperties(QtGui.QMainWindow):
     
                   
 if __name__ == '__main__':
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     test = ROIProperties()
     test.show()
     sys.exit(app.exec_())

@@ -6,10 +6,10 @@ Uses DICOMDIRGui.py created from DICOMDIRGui.ui by QT4
 @author: stephen russek
 '''
 
-from PyQt5 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, QtWidgets
 from DICOMDIRGui5 import Ui_DICOMDIRGui
 
-class DICOMDIRlist(QtGui.QDialog):
+class DICOMDIRlist(QtWidgets.QDialog):
     def __init__(self ,parent = None):
         super(DICOMDIRlist, self).__init__()
         self.ui = Ui_DICOMDIRGui()

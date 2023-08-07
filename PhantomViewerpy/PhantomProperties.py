@@ -9,14 +9,14 @@ execute   "designer\pyuic4 designer\PhantomPropertiesGui.ui -o PhantomViewer\Pha
 
 import sys
 try:
-  from PyQt4 import QtGui, QtCore
+  from PyQt4 import QtGui, QtCore, QtWidgets
 except:
-  from PyQt5 import QtGui, QtCore
+  from PyQt5 import QtGui, QtCore, QtWidgets
 from PhantomPropertiesGui import Ui_PhantomPropertiesGui
 import numpy as np
 import VPhantom
 
-class PhantomProperties(QtGui.QMainWindow):
+class PhantomProperties(QtWidgets.QMainWindow):
   def __init__(self ,phantom, parent = None):
     super(PhantomProperties, self).__init__()
     self.ui = Ui_PhantomPropertiesGui()
@@ -103,7 +103,7 @@ class PhantomProperties(QtGui.QMainWindow):
  
                   
 if __name__ == '__main__':
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     test = PhantomProperties()
     test.show()
     sys.exit(app.exec_())
